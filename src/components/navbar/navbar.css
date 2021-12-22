@@ -1,0 +1,37 @@
+.navbar-container {
+  /* margin-top: var(--header-height); */
+  height: 100vh;
+  width: var(--header-height);
+  background: var(--primary-color);
+  position: fixed;
+}
+
+.navbar-container a {
+  text-decoration: none;
+}
+
+.navbar-container a:active {
+  background: #181818;
+}
+
+.nav-items {
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  color: white;
+}
+
+.nav-items:hover {
+  background: black;
+}
+.nav-items svg {
+  height: 20px;
+  width: 20px;
+}
+
+.nav-items span {
+  font-size: 0.7rem;
+}

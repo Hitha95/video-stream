@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  background: black;
+}
+a {
+  text-decoration: none;
+}
+* {
+  --primary-color: #252525;
+  --header-height: 65px;
+  font-family: "Roboto", "Arial", sans-serif;
+}

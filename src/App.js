@@ -1,5 +1,30 @@
-function App() {
-  return <div>hello</div>;
-}
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Navbar from "./components/Navbar/Navbar";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/SignUp/SignUp";
+import Playlist from "./pages/Playlist/Playlist";
+import History from "./pages/History/History";
+import LikedVideos from "./pages/Liked-videos/LikedVideos";
+import VideoPlayer from "./components/Video-player/VideoPlayer";
+
+const App = () => {
+  return (
+    <>
+      <Header />
+      <Navbar />
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/playlist" element={<Playlist />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/liked-videos" element={<LikedVideos />} />
+        <Route path="/:videoLink" element={<VideoPlayer />} />
+      </Routes>
+    </>
+  );
+};
 
 export default App;
