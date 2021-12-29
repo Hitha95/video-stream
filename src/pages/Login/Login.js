@@ -1,42 +1,94 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import validator from "validator";
 import "./login.css";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = (props) => {
+  const navigate = useNavigate();
+  const [login, setLogin] = useState({
+    email: "",
+    password: "",
+  });
   const [formErrors, setFormErrors] = useState({});
   const errors = {};
+  let userdata = {
+    email: JSON.parse(localStorage.getItem("video-streamer-user"))
+      ? JSON.parse(localStorage.getItem("video-streamer-user")).email
+      : "",
+    password: JSON.parse(localStorage.getItem("video-streamer-user"))
+      ? JSON.parse(localStorage.getItem("video-streamer-user")).password
+      : "",
+  };
 
   const runValidations = () => {
-    if (password.trim().length === 0) {
+    if (login.password.trim().length === 0) {
       errors.password = "password cannot be blank";
     }
-    if (password.trim().length < 8) {
+    if (login.password.trim().length < 8) {
       errors.password = "minimum 8 characters";
     }
     //error
-    if (email.trim().length === 0) {
+    if (login.email.trim().length === 0) {
       errors.email = "email cannot be blank";
     }
-    if (email.trim().length > 0 && validator.isEmail(email)) {
+    if (login.email.trim().length === 0) {
+      errors.email = "email cannot be blank";
+    } else if (!validator.isEmail(login.email)) {
       errors.email = "invalid email";
     }
   };
+
+  const testcredentials = () => {
+    let loginCopy = { ...login };
+    let data = {
+      email: "testcred@mail.com",
+      password: "testcred",
+    };
+    if (loginCopy.email === "" || loginCopy.password === "") {
+      localStorage.setItem("video-streamer-user", JSON.stringify(data));
+      loginCopy.email = data.email;
+      loginCopy.password = data.password;
+    } else {
+      loginCopy = {
+        ...JSON.parse(localStorage.getItem("video-streamer-user")),
+      };
+    }
+    setLogin(loginCopy);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     runValidations();
     if (Object.keys(errors).length === 0) {
       setFormErrors({});
-      const formData = {
+      if (
+        userdata.email !== "" &&
+        userdata.email === login.email &&
+        userdata.password !== "" &&
+        userdata.password === login.password
+      ) {
+        alert("logged in");
+        localStorage.setItem("video-streamer-isLoggedIn", true);
+        navigate("/");
+        //window.location.reload();
+      } else if (userdata.email !== login.email) {
+        alert("please enter your registered email id");
+      } else if (userdata.password !== login.password) {
+        alert("wrong password");
+      }
+      /* const formData = {
         email: email,
         password: password,
       };
-      console.log(formData);
+      console.log(formData); */
     } else {
       setFormErrors(errors);
     }
+  };
+
+  const handleLogin = (e) => {
+    let value = e.target.value;
+    setLogin({ ...login, [e.target.name]: value });
   };
   return (
     <div className="login-form-container">
@@ -47,27 +99,27 @@ const Login = () => {
           <input
             type="textbox"
             placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={login.email}
+            name="email"
+            onChange={handleLogin}
           />
 
           {formErrors.email && <span>{formErrors.email}</span>}
         </div>
         <div className="form-items">
           <label>Password</label>
-
           <input
             type="password"
             placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={login.password}
+            name="password"
+            onChange={handleLogin}
           />
-
           {formErrors.password && <span>{formErrors.password}</span>}
         </div>
         <div className="form-items">
           <button type="submit" value="login">
-            Login
+            LOGIN
           </button>
         </div>
         <div className="form-items">
@@ -78,6 +130,12 @@ const Login = () => {
               <i>here</i>
             </Link>{" "}
             to get started!
+          </p>
+          <p style={{ fontSize: "13px" }}>
+            <i onClick={testcredentials} style={{ cursor: "pointer" }}>
+              <u>Click here</u>
+            </i>{" "}
+            for test credentials
           </p>
         </div>
       </form>

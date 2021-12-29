@@ -4,7 +4,15 @@
   justify-content: center;
   margin-top: var(--header-height);
 }
-
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
 .player-left {
   margin-top: 35px;
   width: 50%;
@@ -46,7 +54,11 @@
   font-weight: 400;
   color: lightgrey;
 }
-
+.video-title {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
 .videoplayer-actions {
   display: flex;
   justify-content: space-between;
@@ -68,7 +80,12 @@
   height: 20px;
   padding-right: 1px;
 }
-
+.video-player-liked :hover {
+  cursor: pointer;
+}
+.blue {
+  color: var(--blue);
+}
 .player-right {
   width: 275px;
 }

@@ -1,0 +1,12 @@
+.playlist-page-container {
+  margin-top: var(--header-height);
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-page-container h2 {
+  width: fit-content;
+  text-align: center;
+  margin: 20px auto;
+  color: white;
+}

@@ -1,6 +1,6 @@
-.videos-list {
+.playlist-list {
   display: flex;
   flex-wrap: wrap;
   margin-left: 100px;
-  margin-top: var(--header-height);
+  justify-content: center;
 }

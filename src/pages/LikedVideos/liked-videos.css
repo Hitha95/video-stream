@@ -1,0 +1,17 @@
+.liked-page-container {
+  margin-top: var(--header-height);
+}
+.liked-page-container h2 {
+  width: fit-content;
+  text-align: center;
+  margin: 20px auto;
+  color: white;
+  padding-top: 20px;
+}
+
+.liked-page-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 100px;
+  justify-content: center;
+}

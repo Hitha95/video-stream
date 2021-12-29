@@ -8,7 +8,7 @@ const Header = () => {
         Video-streamer
       </Link>
       <Link className="header-actions" to="/login">
-        Login
+        LOGIN
       </Link>
     </div>
   );

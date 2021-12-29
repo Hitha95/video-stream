@@ -1,0 +1,41 @@
+.playlist-card-container {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  padding: 20px;
+}
+
+.playlist-card {
+  width: 275px;
+  position: relative;
+}
+
+.playlist-card img {
+  width: 100%;
+}
+
+.playlist-count {
+  top: 0;
+  right: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.75);
+  height: 100%;
+  width: 55%;
+  justify-content: center;
+  color: white;
+  align-items: center;
+}
+
+.playlist-count svg {
+  width: 33px;
+  height: 33px;
+}
+.playlist-card-title {
+  display: flex;
+  justify-content: center;
+  margin-top: 7px;
+  text-transform: capitalize;
+  font-size: 1.1em;
+}

@@ -1,5 +1,4 @@
 .navbar-container {
-  /* margin-top: var(--header-height); */
   height: 100vh;
   width: var(--header-height);
   background: var(--primary-color);

@@ -5,58 +5,88 @@ import "../Login/login.css";
 import "./sign-up.css";
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [signUp, setSignUp] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [formErrors, setFormErrors] = useState({});
   const errors = {};
 
   const runValidations = () => {
-    if (name.trim().length === 0) {
+    if (signUp.name.trim().length === 0) {
       errors.name = "name cannont be blank";
     }
-    if (email.trim().length === 0) {
+    if (signUp.email.trim().length === 0) {
       errors.email = "email cannot be blank";
-    } else if (!validator.isEmail(email)) {
+    } else if (!validator.isEmail(signUp.email)) {
       errors.email = "invalid email";
     }
-    if (password.trim().length === 0) {
+    if (signUp.password.trim().length === 0) {
       errors.password = "password cannot be blank";
     }
-    if (password.trim().length > 0 && password.trim().length < 8) {
+    if (
+      signUp.password.trim().length > 0 &&
+      signUp.password.trim().length < 8
+    ) {
       errors.password = "minimum 8 characters";
     }
-    if (confirmPassword.trim().length === 0) {
+    if (signUp.confirmPassword.trim().length === 0) {
       errors.confirmPassword = "password cannot be blank";
+    } else if (signUp.confirmPassword !== signUp.password) {
+      errors.confirmPassword = "password doesn't match";
     }
-    if (
+    /* if (
       confirmPassword.trim().length > 0 &&
       confirmPassword.trim().length < 8
     ) {
       errors.confirmPassword = "minimum 8 characters";
     } else if (confirmPassword.trim() !== password.trim()) {
       errors.confirmPassword = "passwords dont match!";
-    }
+    } */
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     runValidations();
     if (Object.keys(errors).length === 0) {
       setFormErrors({});
       const formData = {
-        name: name,
-        email: email,
-        password: password,
+        name: signUp.name,
+        email: signUp.email,
+        password: signUp.password,
       };
-      console.log(formData);
+      // console.log(formData);
+      if (
+        localStorage.getItem("video-streamer-user") &&
+        JSON.parse(localStorage.getItem("video-streamer-user")).email ===
+          signUp.email
+        // JSON.parse(localStorage.getItem("video-streamer-user")).email ===
+        // email
+      ) {
+        alert("user already registered. Please login");
+        setSignUp.name("");
+        setSignUp.email("");
+        setSignUp.password("");
+        setSignUp.confirmPassword("");
+      } else {
+        localStorage.setItem("video-streamer-user", JSON.stringify(formData));
+      }
     } else {
       setFormErrors(errors);
     }
   };
+  const handleSignUp = (e) => {
+    let value = e.target.value;
+    setSignUp({
+      ...signUp,
+      [e.target.name]: value,
+    });
+  };
 
   return (
-    <div className="sign-up-form-container">
+    <div className="login-form-container">
       <form className="form-container" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
         <div className="form-items">
@@ -64,8 +94,9 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="Enter your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={signUp.name}
+            name="name"
+            onChange={handleSignUp}
           />
           {formErrors.name && <span>{formErrors.name}</span>}
         </div>
@@ -74,8 +105,9 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={signUp.email}
+            name="email"
+            onChange={handleSignUp}
           />
           {formErrors.email && <span>{formErrors.email}</span>}
         </div>
@@ -84,8 +116,9 @@ const SignUp = () => {
           <input
             type="password"
             placeholder="enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={signUp.password}
+            name="password"
+            onChange={handleSignUp}
           />
           {formErrors.password && <span>{formErrors.password}</span>}
         </div>
@@ -94,15 +127,16 @@ const SignUp = () => {
           <input
             type="password"
             placeholder="re enter your password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={signUp.confirmPassword}
+            name="confirmPassword"
+            onChange={handleSignUp}
           />
           {formErrors.confirmPassword && (
             <span>{formErrors.confirmPassword}</span>
           )}
         </div>
         <div className="form-items">
-          <button type="submit">Sign up</button>
+          <button type="submit">SIGN UP</button>
         </div>
         <div className="form-items">
           <p>Already a user?</p>

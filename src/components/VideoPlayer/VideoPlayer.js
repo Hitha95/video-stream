@@ -1,29 +1,61 @@
+import { useState } from "react";
 import "./video-player.css";
 import videos from "../../Data/videos.json";
-import VideoCard from "../Video-card/VideoCard";
+import VideoCard from "../VideoCard/VideoCard";
 import { useParams } from "react-router-dom";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiFillLike } from "react-icons/ai";
 import { RiShareForwardFill } from "react-icons/ri";
 import { MdPlaylistAdd } from "react-icons/md";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useUser } from "../../context/user/userContext";
+import Modal from "react-modal";
+import PlaylistModal from "../Playlist/PlaylistModal";
 
 const VideoPlayer = (props) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { videoLink } = useParams();
+  const { user, userDispatch, userActionTypes } = useUser();
   let filteredList = [];
   let currentVideo = {};
-  //useEffect(() => {
+  function openModal() {
+    setModalIsOpen(true);
+  }
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+
   filteredList = videos.filter((video) => {
     return video.videoLink !== videoLink;
   });
   currentVideo = videos.find((video) => {
     return video.videoLink === videoLink;
   });
-  //}, []);
-
-  console.log(filteredList);
-  console.log(currentVideo);
+  const inLiked = user.liked.find((video) => {
+    return video.id === currentVideo.id;
+  });
+  const handleLike = (video) => {
+    //console.log("handleLike", video);
+    userDispatch({
+      type: inLiked
+        ? userActionTypes.REMOVE_FROM_LIKED
+        : userActionTypes.ADD_TO_LIKED,
+      payload: video,
+    });
+  };
+  const handlePlaylist = (video) => {
+    openModal();
+  };
   return (
     <div className="video-player-container">
+      <Modal
+        ariaHideApp={false}
+        className="modal"
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Example Modal"
+      >
+        <PlaylistModal closeModal={closeModal} currentVideo={currentVideo} />
+      </Modal>
       <div className="player-left">
         <iframe
           className="iframe-video"
@@ -40,15 +72,22 @@ const VideoPlayer = (props) => {
             alt={currentVideo.title}
           />
           <div className="video-details videoplayer-details">
-            <p className=" video-title">{currentVideo.title}</p>
+            <p className="video-title">{currentVideo.title}</p>
             <p className="videoplayer-channel-name">
               {currentVideo.channelName} • {currentVideo.views} views •{" "}
               {currentVideo.age} ago
             </p>
           </div>
           <div className="videoplayer-actions">
-            <div>
-              <AiOutlineLike />
+            <div
+              className={
+                inLiked ? "video-player-liked blue" : "video-player-liked "
+              }
+              onClick={(video) => {
+                handleLike(currentVideo);
+              }}
+            >
+              <AiFillLike />
               {currentVideo.likes}
             </div>
             <div>
@@ -57,7 +96,11 @@ const VideoPlayer = (props) => {
               </CopyToClipboard>
               SHARE
             </div>
-            <div>
+            <div
+              onClick={(video) => {
+                handlePlaylist(currentVideo);
+              }}
+            >
               <MdPlaylistAdd />
               SAVE
             </div>

@@ -1,0 +1,30 @@
+.playlist-item-container {
+  margin: 65px 100px;
+}
+
+.playlist-item-title {
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.playlist-item-actions {
+  display: flex;
+  min-width: 40px;
+  justify-content: space-between;
+}
+.playlist-item-actions svg {
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.playlist-edit-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
