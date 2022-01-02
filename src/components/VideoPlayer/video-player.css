@@ -1,6 +1,6 @@
-.video-player-container {
+.videoplayer-container {
   display: flex;
-  width: 100%;
+  width: 105%;
   justify-content: center;
   margin-top: var(--header-height);
 }
@@ -13,15 +13,15 @@
   margin-right: -50%;
   transform: translate(-50%, -50%);
 }
-.player-left {
+.videoplayer-left {
   margin-top: 35px;
   width: 50%;
-  height: 382px;
+  height: 75vh;
 }
 
 .iframe-video {
   width: 100%;
-  height: 100%;
+  height: 70%;
 }
 
 .videoplayer-info {
@@ -30,7 +30,7 @@
   padding: 10px;
 }
 
-.img-channel {
+.videoplayer-channel-img {
   width: 75px;
   height: 75px;
   border-radius: 100%;
@@ -41,12 +41,10 @@
   padding-left: 20px;
   width: 100%;
 }
-/* 
 .videoplayer-title {
-  font-size: 1.5rem;
   color: white;
+  margin-top: 4px;
 }
-*/
 .videoplayer-channel-name {
   letter-spacing: 0.4px;
   font-size: 0.7rem;
@@ -54,18 +52,13 @@
   font-weight: 400;
   color: lightgrey;
 }
-.video-title {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
-}
+
 .videoplayer-actions {
   display: flex;
   justify-content: space-between;
   font-size: 0.8rem;
   color: white;
   width: 300px;
-  margin-top: 4px;
 }
 
 .videoplayer-actions div {
@@ -73,6 +66,8 @@
   align-items: center;
   height: 20px;
   font-size: 0.8rem;
+  cursor: pointer;
+  margin: 3px;
 }
 
 .videoplayer-actions > div > svg {
@@ -80,19 +75,18 @@
   height: 20px;
   padding-right: 1px;
 }
-.video-player-liked :hover {
-  cursor: pointer;
-}
-.blue {
+
+.liked-blue {
   color: var(--blue);
 }
 .player-right {
-  width: 275px;
+  width: 25%;
+  margin: 15px;
+  padding: 15px;
 }
 
 .player-right h2 {
   color: #f6eaea;
-  margin-bottom: 0;
   width: 100%;
   text-align: center;
 }

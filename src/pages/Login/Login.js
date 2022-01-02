@@ -12,11 +12,11 @@ const Login = (props) => {
   const [formErrors, setFormErrors] = useState({});
   const errors = {};
   let userdata = {
-    email: JSON.parse(localStorage.getItem("video-streamer-user"))
-      ? JSON.parse(localStorage.getItem("video-streamer-user")).email
+    email: JSON.parse(localStorage.getItem("video-stream-user"))
+      ? JSON.parse(localStorage.getItem("video-stream-user")).email
       : "",
-    password: JSON.parse(localStorage.getItem("video-streamer-user"))
-      ? JSON.parse(localStorage.getItem("video-streamer-user")).password
+    password: JSON.parse(localStorage.getItem("video-stream-user"))
+      ? JSON.parse(localStorage.getItem("video-stream-user")).password
       : "",
   };
 
@@ -45,12 +45,12 @@ const Login = (props) => {
       password: "testcred",
     };
     if (loginCopy.email === "" || loginCopy.password === "") {
-      localStorage.setItem("video-streamer-user", JSON.stringify(data));
+      localStorage.setItem("video-stream-user", JSON.stringify(data));
       loginCopy.email = data.email;
       loginCopy.password = data.password;
     } else {
       loginCopy = {
-        ...JSON.parse(localStorage.getItem("video-streamer-user")),
+        ...JSON.parse(localStorage.getItem("video-stream-user")),
       };
     }
     setLogin(loginCopy);
@@ -67,10 +67,10 @@ const Login = (props) => {
         userdata.password !== "" &&
         userdata.password === login.password
       ) {
-        alert("logged in");
-        localStorage.setItem("video-streamer-isLoggedIn", true);
+        JSON.stringify(localStorage.setItem("video-stream-isLoggedIn", true));
         navigate("/");
-        //window.location.reload();
+
+        window.location.reload();
       } else if (userdata.email !== login.email) {
         alert("please enter your registered email id");
       } else if (userdata.password !== login.password) {

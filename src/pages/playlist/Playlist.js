@@ -1,6 +1,7 @@
 import PlaylistHome from "../../components/Playlist/PlaylistHome";
 import { usePlaylist } from "../../context/playlist/PlaylistContext";
 import "./playlist.css";
+
 const Playlist = () => {
   const { playlist } = usePlaylist();
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./video-player.css";
 import videos from "../../Data/videos.json";
 import VideoCard from "../VideoCard/VideoCard";
@@ -6,24 +6,19 @@ import { useParams } from "react-router-dom";
 import { AiFillLike } from "react-icons/ai";
 import { RiShareForwardFill } from "react-icons/ri";
 import { MdPlaylistAdd } from "react-icons/md";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useUser } from "../../context/user/userContext";
 import Modal from "react-modal";
 import PlaylistModal from "../Playlist/PlaylistModal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const VideoPlayer = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [pageLink, setPageLink] = useState();
   const { videoLink } = useParams();
   const { user, userDispatch, userActionTypes } = useUser();
   let filteredList = [];
   let currentVideo = {};
-  function openModal() {
-    setModalIsOpen(true);
-  }
-  function closeModal() {
-    setModalIsOpen(false);
-  }
-
   filteredList = videos.filter((video) => {
     return video.videoLink !== videoLink;
   });
@@ -33,8 +28,23 @@ const VideoPlayer = (props) => {
   const inLiked = user.liked.find((video) => {
     return video.id === currentVideo.id;
   });
+  useEffect(() => {
+    setPageLink(window.location.href);
+  });
+  useEffect(() => {
+    userDispatch({
+      type: userActionTypes.ADD_TO_HISTORY,
+      payload: { currentVideo },
+    });
+  }, []);
+  function openModal() {
+    setModalIsOpen(true);
+  }
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+
   const handleLike = (video) => {
-    //console.log("handleLike", video);
     userDispatch({
       type: inLiked
         ? userActionTypes.REMOVE_FROM_LIKED
@@ -42,11 +52,40 @@ const VideoPlayer = (props) => {
       payload: video,
     });
   };
-  const handlePlaylist = (video) => {
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href).then(
+      function () {
+        toast.success("Copied to clipboard!", {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+      },
+      function (err) {
+        toast("Failed to copy");
+      }
+    );
+  };
+  const handlePlaylist = () => {
     openModal();
   };
   return (
-    <div className="video-player-container">
+    <div className="videoplayer-container">
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover={false}
+      />
       <Modal
         ariaHideApp={false}
         className="modal"
@@ -56,7 +95,7 @@ const VideoPlayer = (props) => {
       >
         <PlaylistModal closeModal={closeModal} currentVideo={currentVideo} />
       </Modal>
-      <div className="player-left">
+      <div className="videoplayer-left">
         <iframe
           className="iframe-video"
           src={`https://www.youtube.com/embed/${videoLink}`}
@@ -67,12 +106,12 @@ const VideoPlayer = (props) => {
         ></iframe>
         <div className="videoplayer-info">
           <img
-            className="img-channel"
+            className="videoplayer-channel-img"
             src={currentVideo.channelImage}
             alt={currentVideo.title}
           />
-          <div className="video-details videoplayer-details">
-            <p className="video-title">{currentVideo.title}</p>
+          <div className="videoplayer-details">
+            <p className="videoplayer-title">{currentVideo.title}</p>
             <p className="videoplayer-channel-name">
               {currentVideo.channelName} • {currentVideo.views} views •{" "}
               {currentVideo.age} ago
@@ -80,9 +119,7 @@ const VideoPlayer = (props) => {
           </div>
           <div className="videoplayer-actions">
             <div
-              className={
-                inLiked ? "video-player-liked blue" : "video-player-liked "
-              }
+              className={inLiked ? "liked-blue" : ""}
               onClick={(video) => {
                 handleLike(currentVideo);
               }}
@@ -90,10 +127,8 @@ const VideoPlayer = (props) => {
               <AiFillLike />
               {currentVideo.likes}
             </div>
-            <div>
-              <CopyToClipboard text={window.location.href}>
-                <RiShareForwardFill />
-              </CopyToClipboard>
+            <div onClick={copyToClipboard}>
+              <RiShareForwardFill />
               SHARE
             </div>
             <div

@@ -3,6 +3,8 @@ import { usePlaylist } from "../../context/playlist/PlaylistContext";
 import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { v4 as uuidv4 } from "uuid";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PlaylistModal = ({ closeModal, currentVideo }) => {
   const { playlist, playlistActionTypes, playlistDispatch } = usePlaylist();
@@ -24,6 +26,7 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
     if (newPlaylist === "") {
       alert("name cant be blank");
     } else {
+      setSelected({});
       let details = {
         id: uuidv4(),
         title: newPlaylist,
@@ -34,6 +37,15 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
         payload: { details },
       });
       setNewPlaylist("");
+      toast.success("Created new playlist!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
       closeModal();
     }
   };
@@ -49,10 +61,30 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
       payload: details,
     });
     setNewPlaylist("");
+    toast.success("Added to playlist!", {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+    });
     closeModal();
   };
   return (
     <div className="playlist-modal-container">
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover={false}
+      />
       <div className="playlist-header">
         <h2>Playlist</h2>
         <AiOutlineClose onClick={closeModal} />

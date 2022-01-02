@@ -57,21 +57,26 @@ const SignUp = () => {
         email: signUp.email,
         password: signUp.password,
       };
-      // console.log(formData);
       if (
-        localStorage.getItem("video-streamer-user") &&
-        JSON.parse(localStorage.getItem("video-streamer-user")).email ===
+        localStorage.getItem("video-stream-user") &&
+        JSON.parse(localStorage.getItem("video-stream-user")).email ===
           signUp.email
-        // JSON.parse(localStorage.getItem("video-streamer-user")).email ===
+        // JSON.parse(localStorage.getItem("video-stream-user")).email ===
         // email
       ) {
         alert("user already registered. Please login");
-        setSignUp.name("");
+        /* setSignUp.name("");
         setSignUp.email("");
         setSignUp.password("");
-        setSignUp.confirmPassword("");
+        setSignUp.confirmPassword(""); */
+        setSignUp(() => ({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        }));
       } else {
-        localStorage.setItem("video-streamer-user", JSON.stringify(formData));
+        localStorage.setItem("video-stream-user", JSON.stringify(formData));
       }
     } else {
       setFormErrors(errors);

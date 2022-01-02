@@ -33,7 +33,7 @@
 
 .form-container button {
   color: var(--primary-color);
-  /* background: var(--primary-color); */
+  background: var(--blue);
   margin-left: 160px;
   padding: 5px 10px;
   height: 35px;

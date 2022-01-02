@@ -73,14 +73,14 @@ h6:after {
 .modal-save button {
   width: max-content;
   border: 1px solid white;
-  background: var(--blue);
+  height: 23px;
   border-radius: 5px;
   padding: 3px 5px;
   color: white;
   font-size: 0.6em;
   cursor: pointer;
+  background: var(--blue);
 }
-
 .modal-save button:disabled {
   cursor: not-allowed;
   background: gray;

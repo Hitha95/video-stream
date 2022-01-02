@@ -5,6 +5,7 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import "./playlist-item.css";
 import Modal from "react-modal";
 import { useState, useEffect } from "react";
+import { ImCancelCircle } from "react-icons/im";
 
 const PlaylistItem = () => {
   const { id } = useParams();
@@ -56,6 +57,20 @@ const PlaylistItem = () => {
     });
     navigate("/playlist");
   };
+
+  const handleRemove = (video) => {
+    let details = {
+      id: list.id,
+      title: name,
+      video: video,
+      navigate: navigate,
+    };
+    playlistDispatch({
+      type: playlistActionTypes.REMOVE_FROM_PLAYLIST,
+      payload: { details },
+    });
+  };
+
   return (
     <div className="playlist-item-container">
       <Modal
@@ -64,7 +79,7 @@ const PlaylistItem = () => {
         onRequestClose={closeModal}
         className="playlist-edit-modal"
       >
-        <div>
+        <div className="playlist-modal-actions">
           <input
             type="text"
             value={name}
@@ -72,9 +87,16 @@ const PlaylistItem = () => {
               setName(e.target.value);
             }}
           />
-          <div>
-            <button onClick={handleSave}>SAVE</button>
-            <button onClick={handleDiscard}>DISCARD</button>
+          <div className="playlist-modal-actions-button">
+            <button className="playlist-edit-button blue" onClick={handleSave}>
+              SAVE
+            </button>
+            <button
+              className="playlist-edit-button gray"
+              onClick={handleDiscard}
+            >
+              DISCARD
+            </button>
           </div>
         </div>
       </Modal>
@@ -85,10 +107,23 @@ const PlaylistItem = () => {
           <AiFillDelete onClick={handleDelete} />
         </div>
       </div>
-      <div>
+      <div className="playlist-item-list">
         {list.videos &&
           list.videos.map((video) => {
-            return <VideoCard video={video} />;
+            return (
+              <div
+                className="playlist-item-listitem"
+                style={{ position: "relative" }}
+              >
+                <VideoCard video={video} />
+                <ImCancelCircle
+                  className="playlist-item-cancel"
+                  onClick={() => {
+                    handleRemove(video);
+                  }}
+                />
+              </div>
+            );
           })}
       </div>
     </div>
