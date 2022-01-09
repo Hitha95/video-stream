@@ -1,10 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import validator from "validator";
+/* import firebase from "firebase";
+import { getAuth } from "firebase/auth";
+import { FirebaseAuth } from "react-firebaseui";
+import { AuthContext } from "../../FIrebase/context"; */
 import "../Login/login.css";
 import "./sign-up.css";
 
 const SignUp = () => {
+  //const { user } = useContext(AuthContext);
+
+  //this is our config for FirebaseAuth
+  /*   const uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccess: () => false,
+    }, */
+  /*  const auth = getAuth();
+  const uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [
+      auth.GoogleAuthProvider.PROVIDER_ID,
+      auth.EmailAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccess: () => false,
+    },
+  }; */
+
   const [signUp, setSignUp] = useState({
     name: "",
     email: "",

@@ -12,7 +12,10 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
   const [selected, setSelected] = useState({});
   const handlePlaylist = (e, playlist) => {
     console.log(playlist);
+    console.log(selected);
+
     setSelected(playlist);
+
     /*  let value = e.target.value;
     console.log()
     let list = playlist.find((item) => {
@@ -50,27 +53,33 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
     }
   };
   const handleSave = () => {
-    console.log(selected);
-    let details = {
-      id: selected.id,
-      title: selected.title,
-      videos: [currentVideo],
-    };
-    playlistDispatch({
-      type: playlistActionTypes.ADD_TO_PLAYLIST,
-      payload: details,
-    });
-    setNewPlaylist("");
-    toast.success("Added to playlist!", {
-      position: "top-center",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-      progress: undefined,
-    });
-    closeModal();
+    if (typeof selected === "object" && Object.keys(selected).length === 0) {
+      alert("Choose a playlist or create one!");
+    } else {
+      console.log(typeof selected);
+      console.log(selected == null);
+      console.log(Object.keys(selected).length === 0);
+      let details = {
+        id: selected.id,
+        title: selected.title,
+        videos: [currentVideo],
+      };
+      playlistDispatch({
+        type: playlistActionTypes.ADD_TO_PLAYLIST,
+        payload: details,
+      });
+      setNewPlaylist("");
+      toast.success("Added to playlist!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });
+      closeModal();
+    }
   };
   return (
     <div className="playlist-modal-container">

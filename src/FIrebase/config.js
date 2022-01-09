@@ -1,7 +1,8 @@
-import * as firebase from "firebase";
+//import * as firebase from "firebase";
+import { initializeApp } from "firebase/app";
 import "firebase/auth";
 
-const config = firebase.initializeApp({
+const config = initializeApp({
   apiKey: "AIzaSyAIbS5zZ-EAuoX7ZhCOflRI0_WPClYopXE",
   authDomain: "video-streamer-ff913.firebaseapp.com",
   databaseURL: "https://video-streamer-ff913-default-rtdb.firebaseio.com",

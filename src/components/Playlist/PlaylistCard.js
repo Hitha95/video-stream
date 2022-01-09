@@ -7,7 +7,11 @@ const PlaylistCard = ({ item }) => {
     <div className="playlist-card-container">
       <Link to={`/playlist/${id}`}>
         <div className="playlist-card">
-          <img src={videos[0].img} alt="hello" />
+          {videos.length === 0 ? (
+            <div className="empty-videos"></div>
+          ) : (
+            <img src={videos[0].img} alt="hello" />
+          )}
           <div className="playlist-count">
             <MdPlaylistAdd />
             <p>{videos.length} videos</p>

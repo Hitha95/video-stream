@@ -53,54 +53,41 @@ const renamePlaylist = (playlist, { details }) => {
   return copy;
 };
 
-const deletePlaylist = (playlist, { details }) => {
-  let copy = playlist;
-  copy = copy.filter((item) => {
-    return item.id !== details.id;
+const deleteOnePlaylist = (playlists, details) => {
+  let playlistsCopy = playlists;
+  playlistsCopy = playlistsCopy.filter((item) => {
+    return item.id !== details.playlistId;
   });
-  localStorage.setItem("video-stream-app-playlist", JSON.stringify(copy));
-  return copy;
+  localStorage.setItem(
+    "video-stream-app-playlist",
+    JSON.stringify(playlistsCopy)
+  );
+  return playlistsCopy;
 };
 
-const removeFromPlaylist = (playlist, { details }) => {
-  let copy = playlist;
-  /*   console.log(details);
-    let current = copy.find((item) => {
-    return item.id === details.id;
-  });
-  copy = copy.map((item) => {
-    if (current.id === item.id) {
-      current.videos = current.videos.filter((video) => {
-        return video.id !== details.video.id;
-      });
-      return current;
-    } else {
-      return item;
-    }
-  }); */
+const removeFromPlaylist = (playlists, details) => {
+  let playlistsCopy = playlists;
 
-  copy = copy.map((item) => {
-    if (item.id !== details.id) {
-      return item;
-    } else {
-      item.videos = item.videos.filter((video) => {
-        return video.id !== details.video.id;
-      });
-      if (item.videos.length === 0) {
-        details.navigate("/playlist");
-        return null;
-      } else {
-        return item;
-      }
-    }
+  console.log({ details, playlists });
+  let currentPlaylist = playlistsCopy.find((playlist) => {
+    return playlist.id === details.playlistId;
   });
-  copy = copy.filter((item) => {
-    return item !== null;
+  currentPlaylist.videos = currentPlaylist.videos.filter((video) => {
+    return video.id !== details.videoId;
   });
 
-  console.log(copy);
-  localStorage.setItem("video-stream-app-playlist", JSON.stringify(copy));
-  return copy;
+  playlistsCopy = playlistsCopy.map((playlist) => {
+    if (playlist.id === currentPlaylist.id) {
+      return currentPlaylist;
+    } else return playlist;
+  });
+
+  localStorage.setItem(
+    "video-stream-app-playlist",
+    JSON.stringify(playlistsCopy)
+  );
+
+  return playlistsCopy;
 };
 
 export const playlistReducer = (state, { type, payload }) => {
@@ -114,8 +101,8 @@ export const playlistReducer = (state, { type, payload }) => {
     case playlistActionTypes.RENAME_PLAYLIST: {
       return renamePlaylist(state, payload);
     }
-    case playlistActionTypes.DELETE_PLAYLIST: {
-      return deletePlaylist(state, payload);
+    case playlistActionTypes.DELETE_ONE_PLAYLIST: {
+      return deleteOnePlaylist(state, payload);
     }
     case playlistActionTypes.REMOVE_FROM_PLAYLIST: {
       return removeFromPlaylist(state, payload);

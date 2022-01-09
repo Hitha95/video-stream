@@ -13,6 +13,10 @@
 .playlist-card img {
   width: 100%;
 }
+.empty-videos {
+  height: 155px;
+  background: #252525;
+}
 
 .playlist-count {
   top: 0;

@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import "./video-player.css";
 import videos from "../../Data/videos.json";
 import VideoCard from "../VideoCard/VideoCard";
+import { useUser } from "../../context/user/userContext";
 import { useParams } from "react-router-dom";
 import { AiFillLike } from "react-icons/ai";
 import { RiShareForwardFill } from "react-icons/ri";
 import { MdPlaylistAdd } from "react-icons/md";
-import { useUser } from "../../context/user/userContext";
 import Modal from "react-modal";
 import PlaylistModal from "../Playlist/PlaylistModal";
 import { ToastContainer, toast } from "react-toastify";
@@ -125,7 +125,7 @@ const VideoPlayer = (props) => {
               }}
             >
               <AiFillLike />
-              {currentVideo.likes}
+              {inLiked ? currentVideo.likes + 1 : currentVideo.likes}
             </div>
             <div onClick={copyToClipboard}>
               <RiShareForwardFill />

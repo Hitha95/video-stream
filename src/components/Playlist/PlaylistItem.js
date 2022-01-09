@@ -49,25 +49,24 @@ const PlaylistItem = () => {
   };
   const handleDelete = () => {
     let details = {
-      id: list.id,
+      playlistId: list.id,
     };
     playlistDispatch({
-      type: playlistActionTypes.DELETE_PLAYLIST,
-      payload: { details },
+      type: playlistActionTypes.DELETE_ONE_PLAYLIST,
+      payload: details,
     });
     navigate("/playlist");
   };
 
   const handleRemove = (video) => {
     let details = {
-      id: list.id,
-      title: name,
-      video: video,
-      navigate: navigate,
+      playlistId: list.id,
+      videoId: video.id,
+      // navigate: navigate,
     };
     playlistDispatch({
       type: playlistActionTypes.REMOVE_FROM_PLAYLIST,
-      payload: { details },
+      payload: details,
     });
   };
 

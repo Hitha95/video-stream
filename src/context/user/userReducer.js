@@ -18,15 +18,43 @@ const logout = (user, { details }) => {
   return userCopy;
 };
  */
+
 const addToLiked = (user, video) => {
   const userCopy = { ...user };
+
   userCopy.liked = [{ ...video }, ...userCopy.liked];
+  userCopy.liked = userCopy.liked.map((item) => {
+    if (item.id !== video.id) {
+      return item;
+    } else {
+      item.likes = item.likes + 1;
+      return { ...item };
+    }
+  });
+  /* const videosCopy = [...videos];
+  videosCopy = videosCopy.map((item) => {
+    if (item.id === video.id) {
+      item.likes++;
+      return { ...item };
+    } else {
+      return item;
+    }
+  });
+  console.log(videosCopy); */
   localStorage.setItem("video-stream-app", JSON.stringify(userCopy));
   return userCopy;
 };
 
 const removeFromLiked = (user, video) => {
   const userCopy = { ...user };
+  userCopy.liked = userCopy.liked.map((item) => {
+    if (item.id !== video.id) {
+      return item;
+    } else {
+      item.likes = item.likes - 1;
+      return { ...item };
+    }
+  });
   userCopy.liked = userCopy.liked.filter((item) => {
     return item.id !== video.id;
   });
@@ -56,6 +84,7 @@ const clearHistory = (user, payload) => {
 };
 
 export const userReducer = (state, { type, payload }) => {
+  //const videos = useVideos();
   switch (type) {
     /*  case userActionTypes.SIGN_UP: {
       return signUp(state, payload);
