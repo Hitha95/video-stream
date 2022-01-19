@@ -1,4 +1,6 @@
 .navbar-container {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: var(--header-height);
   background: var(--primary-color);
@@ -9,8 +11,8 @@
   text-decoration: none;
 }
 
-.navbar-container a:active {
-  background: #181818;
+.active {
+  background: #000000;
 }
 
 .nav-items {
@@ -24,7 +26,7 @@
 }
 
 .nav-items:hover {
-  background: black;
+  background: #000000;
 }
 .nav-items svg {
   height: 20px;
@@ -33,4 +35,19 @@
 
 .nav-items span {
   font-size: 0.7rem;
+}
+
+@media (max-width: 500px) {
+  .navbar-container {
+    flex-direction: row;
+    height: 65px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+  }
+  .nav-items {
+    height: 65px;
+    width: 25vw;
+  }
 }

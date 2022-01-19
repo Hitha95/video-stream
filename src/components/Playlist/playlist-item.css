@@ -87,3 +87,19 @@
   margin-left: 266px;
   margin-top: -245px;
 }
+
+
+@media (max-width:500px){
+  .playlist-item-listitem svg{
+    margin-left: 365px;
+    margin-top: -291px;
+    width: 19px;
+    height:19px
+  }
+  .playlist-item-container{
+    margin: var(--header-height) 0px;
+  }
+  .playlist-item-list{
+    flex-direction:column
+  }
+}

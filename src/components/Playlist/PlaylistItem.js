@@ -62,7 +62,6 @@ const PlaylistItem = () => {
     let details = {
       playlistId: list.id,
       videoId: video.id,
-      // navigate: navigate,
     };
     playlistDispatch({
       type: playlistActionTypes.REMOVE_FROM_PLAYLIST,
@@ -113,6 +112,7 @@ const PlaylistItem = () => {
               <div
                 className="playlist-item-listitem"
                 style={{ position: "relative" }}
+                key={video.id}
               >
                 <VideoCard video={video} />
                 <ImCancelCircle

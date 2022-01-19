@@ -1,4 +1,4 @@
-import PlaylistHome from "../../components/Playlist/PlaylistHome";
+import PlaylistsHome from "../../components/Playlist/PlaylistsHome";
 import { usePlaylist } from "../../context/playlist/PlaylistContext";
 import "./playlist.css";
 
@@ -9,7 +9,7 @@ const Playlist = () => {
       {playlist.length > 0 ? (
         <>
           <h2>Playlist</h2>
-          <PlaylistHome />
+          <PlaylistsHome />
         </>
       ) : (
         <h2>Your playlist is empty!</h2>

@@ -38,3 +38,13 @@
 .video-stats span {
   font-size: 0.7rem;
 }
+
+@media (max-width: 500px) {
+  .video-card-container {
+    width: 90vw;
+    margin: auto;
+  }
+  .video-image {
+    width: 100%;
+  }
+}

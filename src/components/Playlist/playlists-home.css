@@ -1,14 +1,15 @@
-.videos-list {
+.playlist-list {
   display: flex;
   flex-wrap: wrap;
-  margin-left: var(--header-height);
   justify-content: center;
 }
 
 @media (max-width: 500px) {
-  .videos-list {
-    margin: 0;
-    margin-bottom: var(--header-height);
+  .playlist-list {
     flex-direction: column;
+    margin: auto;
+    width: 90vw;
+    align-content: center;
+    margin-bottom: 65px;
   }
 }

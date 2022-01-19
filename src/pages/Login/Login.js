@@ -76,11 +76,6 @@ const Login = (props) => {
       } else if (userdata.password !== login.password) {
         alert("wrong password");
       }
-      /* const formData = {
-        email: email,
-        password: password,
-      };
-      console.log(formData); */
     } else {
       setFormErrors(errors);
     }

@@ -43,3 +43,10 @@
   text-transform: capitalize;
   font-size: 1.1em;
 }
+
+
+@media(max-width:500px){  
+  .playlist-card{
+    width:325px
+  }
+}

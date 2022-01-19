@@ -4,7 +4,6 @@ import VideoCard from "../../components/VideoCard/VideoCard";
 
 const LikedVideos = () => {
   const { user } = useUser();
-  console.log(user);
   return (
     <div className="liked-page-container">
       {user.liked.length === 0 ? (
@@ -14,7 +13,7 @@ const LikedVideos = () => {
           <h2>Liked videos</h2>
           <div className="liked-page-list">
             {user.liked.map((video) => {
-              return <VideoCard video={video} />;
+              return <VideoCard video={video} key={video.id} />;
             })}
           </div>
         </>

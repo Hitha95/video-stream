@@ -10,21 +10,11 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
   const { playlist, playlistActionTypes, playlistDispatch } = usePlaylist();
   const [newPlaylist, setNewPlaylist] = useState("");
   const [selected, setSelected] = useState({});
+
   const handlePlaylist = (e, playlist) => {
-    console.log(playlist);
-    console.log(selected);
-
     setSelected(playlist);
-
-    /*  let value = e.target.value;
-    console.log()
-    let list = playlist.find((item) => {
-      return item.id === value;
-    });
-    setSelected({ ...playlist });
-    console.log(selected);
-    console.log(value); */
   };
+
   const handleCreate = () => {
     if (newPlaylist === "") {
       alert("name cant be blank");
@@ -52,13 +42,11 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
       closeModal();
     }
   };
+
   const handleSave = () => {
     if (typeof selected === "object" && Object.keys(selected).length === 0) {
       alert("Choose a playlist or create one!");
     } else {
-      console.log(typeof selected);
-      console.log(selected == null);
-      console.log(Object.keys(selected).length === 0);
       let details = {
         id: selected.id,
         title: selected.title,
@@ -81,6 +69,7 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
       closeModal();
     }
   };
+
   return (
     <div className="playlist-modal-container">
       <ToastContainer
@@ -104,7 +93,7 @@ const PlaylistModal = ({ closeModal, currentVideo }) => {
           <div className="modal-list">
             {playlist.map((item, i) => {
               return (
-                <label>
+                <label key={item.id}>
                   <input
                     name="playlistRadio"
                     type="radio"

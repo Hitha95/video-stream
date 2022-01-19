@@ -1,16 +1,16 @@
-import PlaylistCard from "./PlaylistCard";
-import "./playlist-home.css";
+import PlaylistsCard from "./PlaylistsCard";
+import "./playlists-home.css";
 import { usePlaylist } from "../../context/playlist/PlaylistContext";
 
-const PlaylistHome = () => {
+const PlaylistsHome = () => {
   const { playlist } = usePlaylist();
   return (
     <div className="playlist-list">
       {playlist.map((item) => {
-        return <PlaylistCard item={item} />;
+        return <PlaylistsCard key={item.id} item={item} />;
       })}
     </div>
   );
 };
 
-export default PlaylistHome;
+export default PlaylistsHome;

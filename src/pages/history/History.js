@@ -57,7 +57,7 @@ const History = () => {
 
           <div className="history-page-list">
             {user.history.map((video) => {
-              return <VideoCard video={video} />;
+              return <VideoCard video={video} key={video.id} />;
             })}
           </div>
         </>

@@ -1,7 +1,7 @@
 import { MdPlaylistAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
-import "./playlist-card.css";
-const PlaylistCard = ({ item }) => {
+import "./playlists-card.css";
+const PlaylistsCard = ({ item }) => {
   const { id, title, videos } = item;
   return (
     <div className="playlist-card-container">
@@ -23,4 +23,4 @@ const PlaylistCard = ({ item }) => {
   );
 };
 
-export default PlaylistCard;
+export default PlaylistsCard;

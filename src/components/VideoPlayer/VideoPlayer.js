@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./video-player.css";
-import videos from "../../Data/videos.json";
 import VideoCard from "../VideoCard/VideoCard";
 import { useUser } from "../../context/user/userContext";
+import {useVideos} from "../../context/videos/VideosContext"
 import { useParams } from "react-router-dom";
 import { AiFillLike } from "react-icons/ai";
 import { RiShareForwardFill } from "react-icons/ri";
@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 const VideoPlayer = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [pageLink, setPageLink] = useState();
+  const videos = useVideos();
   const { videoLink } = useParams();
   const { user, userDispatch, userActionTypes } = useUser();
   let filteredList = [];
@@ -142,7 +143,7 @@ const VideoPlayer = (props) => {
           </div>
         </div>
       </div>
-      <div className="player-right">
+      <div className="videoplayer-right">
         <h2> Up Next! </h2>
         {filteredList.map((video) => {
           return <VideoCard video={video} key={video.id} />;

@@ -1,24 +1,5 @@
 import * as userActionTypes from "./userActionTypes";
 
-/* const signUp = (user, { formData }) => {
-  const userCopy = { ...user };
-  userCopy.userDetails = userCopy.userDetails.concat(formData);
-  console.log(userCopy);
-  return userCopy;
-};
-
-const login = (user, { details }) => {
-  const userCopy = { ...user };
-
-  return userCopy;
-};
-const logout = (user, { details }) => {
-  const userCopy = { ...user };
-
-  return userCopy;
-};
- */
-
 const addToLiked = (user, video) => {
   const userCopy = { ...user };
 
@@ -31,16 +12,6 @@ const addToLiked = (user, video) => {
       return { ...item };
     }
   });
-  /* const videosCopy = [...videos];
-  videosCopy = videosCopy.map((item) => {
-    if (item.id === video.id) {
-      item.likes++;
-      return { ...item };
-    } else {
-      return item;
-    }
-  });
-  console.log(videosCopy); */
   localStorage.setItem("video-stream-app", JSON.stringify(userCopy));
   return userCopy;
 };
@@ -76,7 +47,7 @@ const addToHistory = (user, { currentVideo }) => {
   return userCopy;
 };
 
-const clearHistory = (user, payload) => {
+const clearHistory = (user) => {
   let userCopy = { ...user };
   userCopy.history = [];
   localStorage.setItem("video-stream-app", JSON.stringify(userCopy));
@@ -84,17 +55,7 @@ const clearHistory = (user, payload) => {
 };
 
 export const userReducer = (state, { type, payload }) => {
-  //const videos = useVideos();
   switch (type) {
-    /*  case userActionTypes.SIGN_UP: {
-      return signUp(state, payload);
-    }
-    case userActionTypes.LOGIN: {
-      return login(state, payload);
-    }
-    case userActionTypes.LOGOUT: {
-      return logout(state, payload);
-    } */
     case userActionTypes.ADD_TO_LIKED: {
       return addToLiked(state, payload);
     }
@@ -105,7 +66,7 @@ export const userReducer = (state, { type, payload }) => {
       return addToHistory(state, payload);
     }
     case userActionTypes.CLEAR_HISTORY: {
-      return clearHistory(state, payload);
+      return clearHistory(state);
     }
     default:
       return state;
