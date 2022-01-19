@@ -12,8 +12,7 @@
 .header-container a {
   text-decoration: none;
   color: white;
-  margin: 14px;
-  margin-left: 30px;
+  margin: 0 0.5rem;
 }
 
 .header-logo {
@@ -22,6 +21,6 @@
 }
 
 .header-actions {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
 }
