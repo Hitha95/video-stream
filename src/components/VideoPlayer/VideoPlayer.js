@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./video-player.css";
 import VideoCard from "../VideoCard/VideoCard";
 import { useUser } from "../../context/user/userContext";
-import {useVideos} from "../../context/videos/VideosContext"
+import { useVideos } from "../../context/videos/VideosContext";
 import { useParams } from "react-router-dom";
 import { AiFillLike } from "react-icons/ai";
 import { RiShareForwardFill } from "react-icons/ri";
@@ -13,66 +14,75 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const VideoPlayer = (props) => {
+  const isLoggedIn =
+    JSON.parse(localStorage.getItem("video-stream-isLoggedIn")) || false;
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [pageLink, setPageLink] = useState();
   const videos = useVideos();
+  const navigate = useNavigate();
   const { videoLink } = useParams();
   const { user, userDispatch, userActionTypes } = useUser();
   let filteredList = [];
   let currentVideo = {};
+
   filteredList = videos.filter((video) => {
     return video.videoLink !== videoLink;
   });
+
   currentVideo = videos.find((video) => {
     return video.videoLink === videoLink;
   });
+
   const inLiked = user.liked.find((video) => {
     return video.id === currentVideo.id;
   });
-  useEffect(() => {
-    setPageLink(window.location.href);
-  });
+
   useEffect(() => {
     userDispatch({
       type: userActionTypes.ADD_TO_HISTORY,
       payload: { currentVideo },
     });
   }, []);
+
   function openModal() {
     setModalIsOpen(true);
   }
+
   function closeModal() {
     setModalIsOpen(false);
   }
 
   const handleLike = (video) => {
-    userDispatch({
-      type: inLiked
-        ? userActionTypes.REMOVE_FROM_LIKED
-        : userActionTypes.ADD_TO_LIKED,
-      payload: video,
-    });
+    isLoggedIn
+      ? userDispatch({
+          type: inLiked
+            ? userActionTypes.REMOVE_FROM_LIKED
+            : userActionTypes.ADD_TO_LIKED,
+          payload: video,
+        })
+      : navigate("/login");
   };
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href).then(
-      function () {
-        toast.success("Copied to clipboard!", {
-          position: "top-center",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: false,
-          progress: undefined,
-        });
-      },
-      function (err) {
-        toast("Failed to copy");
-      }
-    );
+    isLoggedIn
+      ? navigator.clipboard.writeText(window.location.href).then(
+          function () {
+            toast.success("Copied to clipboard!", {
+              position: "top-center",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: false,
+              draggable: false,
+              progress: undefined,
+            });
+          },
+          function (err) {
+            toast("Failed to copy");
+          }
+        )
+      : navigate("/login");
   };
   const handlePlaylist = () => {
-    openModal();
+    isLoggedIn ? openModal() : navigate("/login");
   };
   return (
     <div className="videoplayer-container">

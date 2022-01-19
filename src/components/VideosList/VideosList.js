@@ -1,7 +1,6 @@
 import "./videos-list.css";
 import VideoCard from "../VideoCard/VideoCard";
 import { useVideos } from "../../context/videos/VideosContext";
-import { Link } from "react-router-dom";
 const VideosList = () => {
   const videos = useVideos();
 

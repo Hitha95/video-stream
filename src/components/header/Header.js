@@ -17,9 +17,9 @@ const Header = () => {
       <Link className="header-logo" to="/">
         Video-streamer
       </Link>
-      {/* <Link className="header-actions" to="/login" onClick={handleLogout}>
+      <Link className="header-actions" to="/login" onClick={handleLogout}>
         {loggedIn ? "LOGOUT" : "LOGIN"}
-      </Link> */}
+      </Link>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import "./video-card.css";
 import { Link } from "react-router-dom";
 const VideoCard = ({ video }) => {
-  const { id, img, title, channelName, views, age, videoLink } = video;
+  const { img, title, channelName, views, age, videoLink } = video;
   return (
     <Link to={`/${videoLink}`}>
       <div className="video-card-container">
