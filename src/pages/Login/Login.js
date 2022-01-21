@@ -113,7 +113,7 @@ const Login = (props) => {
           {formErrors.password && <span>{formErrors.password}</span>}
         </div>
         <div className="form-items">
-          <button type="submit" value="login">
+          <button type="submit" value="login" className="btn">
             LOGIN
           </button>
         </div>
